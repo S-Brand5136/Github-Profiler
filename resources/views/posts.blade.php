@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/app.css">
-    <title>My Blog</title>
-</head>
-
-<body>
+<x-layout>
     @foreach ($posts as $post)
     <article>
         <h1>
@@ -22,6 +12,4 @@
         </div>
     </article>
     @endforeach
-</body>
-
-</html>
+</x-layout>
