@@ -2,51 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\File;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Post
+class Post extends Model
 {
-    public $title, $excerpt, $date, $body, $slug;
+    use HasFactory;
 
-    public function __construct(
-        $title,
-        $excerpt,
-        $date,
-        $body,
-        $slug
-    ) {
+    protected $guarded = [];
 
-        $this->title = $title;
-        $this->excerpt = $excerpt;
-        $this->date = $date;
-        $this->body = $body;
-        $this->slug = $slug;
+    protected $with = ['category', 'author'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
-    public static function all()
+    public function author()
     {
-        return cache()->rememberForever('posts.all', function () {
-            return collect(File::files(resource_path("posts")))
-                ->map(function ($file) {
-                    return YamlFrontMatter::parseFile($file);
-                })
-                ->map(function ($document) {
-                    return $posts[] = new Post(
-                        $document->title,
-                        $document->excerpt,
-                        $document->date,
-                        $document->body(),
-                        $document->slug
-                    );
-                })
-                ->sortByDesc('date');
-        });
-    }
-
-    public static function find($slug)
-    {
-        // of all the blog posts with a slug that matches the one that was requested.
-        return static::all()->firstWhere('slug', $slug);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
