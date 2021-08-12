@@ -22,7 +22,8 @@
     </h1>
 
     <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-4">
-        <!--  Category -->
+        <x-category-drop-down />
+        {{-- <!--  Category -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
             <x-dropdown>
                 <x-slot name="trigger">
@@ -36,10 +37,9 @@
                 <x-dropdown-item href='/' :active="request()->routeIs('home')">All</x-dropdown-item>
 
              @foreach ($categories as $category)
-                 <x-dropdown-item href="/categories/{{ $category->slug }}" :active="request()->is('categories/' . $category->slug)">{{ ucwords($category->name) }}</x-dropdown-item>
+                 <x-dropdown-item href="/?category={{ $category->slug }}" :active="request()->is('categories/' . $category->slug)">{{ ucwords($category->name) }}</x-dropdown-item>
              @endforeach
-            </x-dropdown>
-        </div>
+            </x-dropdown> --}}
 
         <!-- Other Filters -->
         {{-- <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
